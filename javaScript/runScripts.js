@@ -56,9 +56,41 @@ console.log('Start');
 btn0.addEventListener('click', getStarwarsCharacter); */
 
 inputForm['userInput'].addEventListener('change', function (e) {
+    e.preventDefault();
     app.userInput = e.target.value;
     console.log(e.target.value);
-    //insert validation of text.
+    //insert validation of text and polish of input, with some modifications (add check for string and empty...)
+    // this can be reUsed from Jonathan:
+/*     const fixName = (name) => {
+        return name.trim()
+        .charAt(0)
+        .toUpperCase() + name.slice(1)
+        .toLowerCase();
+    } */
+    
+    app.inputValidated = true;
+});
+
+inputForm['userInput'].addEventListener('keypress', function (e) {
+    //e.preventDefault();
+    
+    if (e.key === "Enter") {
+        // Cancel the default action, if needed
+        e.preventDefault();
+        // Trigger the button element with a click
+        app.userInput = e.target.value;
+        console.log(e.target.value);
+        document.getElementById("btn0").click();
+      }
+    //insert validation of text and polish of input, with some modifications (add check for string and empty...)
+    // this can be reUsed from Jonathan:
+/*     const fixName = (name) => {
+        return name.trim()
+        .charAt(0)
+        .toUpperCase() + name.slice(1)
+        .toLowerCase();
+    } */
+    
     app.inputValidated = true;
 });
 
@@ -80,14 +112,17 @@ const getStarwarsCharacter = () =>{
         console.log(data);
 
         textDiv.innerHTML = '';
-
+        //change from forEach to something more suitable for the Object result..
         data.result.forEach(element => {
+            
             textDiv.innerHTML += `
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"> ${element.properties.name}</h3>
-                    <p class="card-text">  ${element.uid} </p>
-                    <p class="card-text"> ${element.url}</p>
+                    <p class="card-text"> Personal info: ${element.description} </p>
+                    <p class="card-text"> Height:${element.properties.height}</p>
+                    <p class="card-text"> Hair Color: ${element.properties.hair_color}</p>
+                    <p class="card-text"> Date of birth: ${element.properties.birth_year}</p>
                     <br>
                 </div>
             </div>
