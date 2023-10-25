@@ -17,7 +17,7 @@ const app = {
 };
 
 console.log('Start');
-
+/* 
 inputForm['userInput'].addEventListener('change', function (e) {
     e.preventDefault();
     app.userInput = e.target.value;
@@ -39,19 +39,43 @@ inputForm['userInput'].addEventListener('keypress', function (e) {
       }
     //insert validation of text and polish of input, with some modifications (add check for string and empty...)
     // this can be reUsed from Jonathan:
-/*     const fixName = (name) => {
+     const fixName = (name) => {
         return name.trim()
         .charAt(0)
         .toUpperCase() + name.slice(1)
         .toLowerCase();
-    } */
+    } 
     
     app.inputValidated = true;
+}); 
+*/
+inputForm['userInput'].addEventListener('keypress', function (e) {
+    
+    if (e.key === "Enter") {
+        // Cancel the default action, if needed
+        e.preventDefault();
+        // Trigger the button element with a click
+        app.userInput = e.target.value;
+        console.log(e.target.value);
+        document.getElementById("btn0").click();
+      }
+    //insert validation of text and polish of input, with some modifications (add check for string and empty...)
+    // this can be reUsed from Jonathan:
+/*      const fixName = (name) => {
+        return name.trim()
+        .charAt(0)
+        .toUpperCase() + name.slice(1)
+        .toLowerCase();
+        }  */
+    
 });
 
 //Add respons when no character is found.
 const getStarwarsCharacter = () =>{
-
+    
+    const formData = inputForm['userInput'].value;
+    console.log(formData);
+    app.userInput= formData;
     fetch('https://www.swapi.tech/api/people/?name=' + `${app.userInput}`, {
         method: 'GET',
         headers: {
@@ -68,6 +92,10 @@ const getStarwarsCharacter = () =>{
         console.log(data.result);
         console.log(data.result.properties);
         textDiv.innerHTML = '';
+
+
+        if (data.result.length > 0)
+        {
         //change from forEach to something more suitable for the Object result..
         data.result.forEach(element => {
             
@@ -83,10 +111,30 @@ const getStarwarsCharacter = () =>{
                 </div>
             </div>
             `
+            let starproperties = `${element.properties.name},  ${element.description}
+             ${element.properties.height},  ${element.properties.hair_color}, ${element.properties.birth_year}`;
+            console.log(starproperties);
+            
         })
+
+    }
+    else
+    {
+        textDiv.innerHTML += `
+        <div class="card">
+            
+                 StarwarsStar is not found try again..
+                <br>
+            
+        </div>
+        `
+
+    }
     })
     .catch(err => console.log('Error: ' + err));
 }
 
 btn0.addEventListener('click', getStarwarsCharacter);
+
+
 
