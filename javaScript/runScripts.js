@@ -59,15 +59,7 @@ inputForm['userInput'].addEventListener('change', function (e) {
     e.preventDefault();
     app.userInput = e.target.value;
     console.log(e.target.value);
-    //insert validation of text and polish of input, with some modifications (add check for string and empty...)
-    // this can be reUsed from Jonathan:
-/*     const fixName = (name) => {
-        return name.trim()
-        .charAt(0)
-        .toUpperCase() + name.slice(1)
-        .toLowerCase();
-    } */
-    
+ 
     app.inputValidated = true;
 });
 
@@ -94,7 +86,7 @@ inputForm['userInput'].addEventListener('keypress', function (e) {
     app.inputValidated = true;
 });
 
-
+//Add respons when no character is found.
 const getStarwarsCharacter = () =>{
 
     fetch('https://www.swapi.tech/api/people/?name=' + `${app.userInput}`, {
@@ -110,7 +102,8 @@ const getStarwarsCharacter = () =>{
     })
     .then(data => {
         console.log(data);
-
+        console.log(data.result);
+        console.log(data.result.properties);
         textDiv.innerHTML = '';
         //change from forEach to something more suitable for the Object result..
         data.result.forEach(element => {
