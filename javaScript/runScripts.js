@@ -1,4 +1,6 @@
 
+//TODO:
+// 1. Handle the reading of form field in a better manner, should be read by click on button.
 
 // Create reference to button from index.html
 const btn0 = document.querySelector('#btn0');
@@ -15,45 +17,6 @@ const app = {
 };
 
 console.log('Start');
-
-
-
-/* const getStarwarsCharacter = () =>{
-    fetch('https://api.github.com/users/Lexicon-NET-2023/repos', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(res =>{
-        if(res.ok)
-         return res.json();
-        throw new Error('Failed to get repos');
-    })
-    .then(data => {
-        console.log(data);
-
-        gitOutput.innerHTML = '';
-
-        data.forEach(repo => {
-            gitOutput.innerHTML += `
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">${repo.name}</h3>
-                    <p class="card-text">This repository have been forked ${repo.forks_count} times</p>
-                    <p class="card-text">This repo is mainly written in ${repo.language}</p>
-                    <a href="${repo.html_url}" class="card-link">${repo.name}</a>
-                    <a href="${repo.owner.html_url}" class="card-link">Organisation</a>
-                </div>
-            </div>
-            `
-        })
-    })
-    .catch(err => console.log('Error: ' + err));
-}
-
-
-btn0.addEventListener('click', getStarwarsCharacter); */
 
 inputForm['userInput'].addEventListener('change', function (e) {
     e.preventDefault();
@@ -124,7 +87,6 @@ const getStarwarsCharacter = () =>{
     })
     .catch(err => console.log('Error: ' + err));
 }
-
 
 btn0.addEventListener('click', getStarwarsCharacter);
 
